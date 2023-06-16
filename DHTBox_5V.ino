@@ -9,32 +9,34 @@
    GND-GND
 */
 #define delay_time 2000  //(время между записью в миллисекундах)
-#define LIGHT 3   //(Пин светодиода)
-#define DHTPIN 2  //(Пин DHT)
+#define LIGHT PD5  //(Пин светодиода)
+#define DHTPIN PD2  //(Пин DHT)
+#define DHTTYPE DHT22
 
 
 #include <iarduino_RTC.h>
 #include "DHT.h"
+#include <Wire.h>
 #include <SPI.h>
 #include <SD.h>
 
-
-iarduino_RTC time(RTC_DS1307);
+//iarduino_RTC time(RTC_DS1302, 8, 6, 7);
+iarduino_RTC time(RTC_DS3231);
 DHT dht(DHTPIN, DHT22);
 
-const int chipSelect = 4;
+const int chipSelect = PD4;
 File myFile;
 
 
 void setup() {
     delay(300);
+  
     if (!SD.begin(chipSelect)) {
      for(int sd_not = 0;sd_not<=26;sd_not++){
       digitalWrite(LIGHT,HIGH);
       delay(300);
       digitalWrite(LIGHT,LOW);
       delay(300);
-      
      }
      
    }
@@ -51,22 +53,22 @@ void setup() {
       myFile.print(";");
       myFile.print("Канал");
       myFile.print(";");
-      myFile.print("Режим");
       myFile.print(";");
       myFile.print("Результат");
       myFile.print(";");
       myFile.println();
     }
     myFile.close();
-    dht.begin();
-
+    
 
 }
 void loop() {
-
+  dht.begin();
      float h = dht.readHumidity(); //Измеряем влажность
+     float t = dht.readTemperature(); //Измеряем температуру
 //      Serial.print(h);
 //      Serial.println();
+      
       myFile = SD.open("File.csv", FILE_WRITE);
       if (myFile){
         digitalWrite(LIGHT,HIGH);
@@ -85,11 +87,11 @@ void loop() {
 
       }
       myFile.close();
+      
 
-
-     float t = dht.readTemperature(); //Измеряем температуру
+     
           myFile = SD.open("File.csv", FILE_WRITE);
-            if (myFile){
+          if (myFile){
         digitalWrite(LIGHT,HIGH);
         myFile.print(time.gettime("d.m.Y;H:i:s;"));
         myFile.print("01");
@@ -105,6 +107,6 @@ void loop() {
         myFile.println();
 
       }
-      myFile.close();
-      delay(delay_time);
+          myFile.close();
+     delay(delay_time);
   }
