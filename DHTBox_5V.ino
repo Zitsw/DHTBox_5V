@@ -1,23 +1,23 @@
-/* 25.09.2020
-   Датчик по считыванию температуры и влажности на модуле DHT с micro-sd.
-   SD                                    DHT                                            Лампочка
-   CS-4(или настроить свой пин)          DAT-D2(или настроить свой пин)                 Длинная нога-D3(Или свой пин) + резистор взависимости от лампочки(обычнная маленькая лампочка 100 ОМ) 
-   SCK-13                                VCC-5V                                         Короткая нога-GND
+/* 09.25.2020
+   DHT_logger to measure temperature and humidity with a real time and save it to micro sd card..
+   SD                                    DHT                                            Bulb
+   CS-4(or any other)          DAT-D2(or any other)                 Long leg-D3(or any other) + resister depend on bulb(small one 100 ОМ) 
+   SCK-13                                VCC-5V                                         Short leg-GND
    MOSI-11                               GND-GND
    MISO-12                               
    VCC-5V
    GND-GND
 */
-#define delay_time 2000  //(время между записью в миллисекундах)
-#define LIGHT PD5  //(Пин светодиода)
-#define DHTPIN PD2  //(Пин DHT)
+#define delay_time 2000  //(Delay time in millisec)
+#define LIGHT PD5  //(Bulb Pin)
+#define DHTPIN PD2  //(DHT Pin)
 #define DHTTYPE DHT22
 
 
 #include <iarduino_RTC.h>
 #include "DHT.h"
-#include <Wire.h>
-#include <SPI.h>
+//#include <Wire.h>
+//#include <SPI.h>
 #include <SD.h>
 
 //iarduino_RTC time(RTC_DS1302, 8, 6, 7);

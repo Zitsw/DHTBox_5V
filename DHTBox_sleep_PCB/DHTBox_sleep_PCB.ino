@@ -1,7 +1,7 @@
-/* 25.09.2020
+/* 09.25.2020
    DHT_logger to measure temperature and humidity with a real time and save it to micro sd card.
    SD                                    DHT                                            Bulb
-   CS-4(or any other)          DAT-D2(or any other)                 long leg-D3(Или свой пин) + resister depend on bulb(small one 100 ОМ) 
+   CS-4(or any other)          DAT-D2(or any other)                 long leg-D3(or any other) + resister depend on bulb(small one 100 ОМ) 
    SCK-13                                VCC-5V                                         short leg-GND
    MOSI-11                               GND-GND
    MISO-12                               
@@ -9,7 +9,7 @@
    GND-GND
 */
 #define delay_time 600000  //(Delay time in millisec)
-#define LIGHT PD5  //(Light Pin)
+#define LIGHT PD5  //(Bulb Pin)
 #define DHTPIN PD2  //(DHT Pin)
 #define DHTTYPE DHT22
 
