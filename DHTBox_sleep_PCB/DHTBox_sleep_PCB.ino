@@ -17,8 +17,6 @@
 #include <iarduino_RTC.h>
 #include <GyverPower.h>
 #include "DHT.h"
-//#include <Wire.h>
-//#include <SPI.h>
 #include <SD.h>
 
 //iarduino_RTC time(RTC_DS1302, 8, 6, 7);
@@ -73,8 +71,8 @@ void setup() {
 }
 void loop() {
   
-     float h = dht.readHumidity(); //Измеряем влажность
-     float t = dht.readTemperature(); //Измеряем температуру
+     float h = dht.readHumidity(); //humidity
+     float t = dht.readTemperature(); //temperature
 //      Serial.print(h);
 //      Serial.println();
       
