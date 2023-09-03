@@ -8,7 +8,7 @@
    VCC-5V
    GND-GND
 */
-#define delay_time 600000  //(Delay time in millisec)
+#define delay_time 420000  //(Delay time in millisec)
 #define LIGHT PD5  //(Bulb Pin)
 #define DHTPIN PD2  //(DHT Pin)
 #define DHTTYPE DHT22
@@ -49,7 +49,7 @@ void setup() {
     dht.begin();
     time.begin();
      myFile = SD.open("File.csv", FILE_WRITE);
-    if (myFile) {
+    if (myFile) {//record title 
       myFile.print("Дата");
       myFile.print(";");
       myFile.print("Время");
@@ -77,7 +77,7 @@ void loop() {
 //      Serial.println();
       
       myFile = SD.open("File.csv", FILE_WRITE);
-      if (myFile){
+      if (myFile){//record T
 //        digitalWrite(LIGHT,HIGH);
 //        delay(500);
 //        digitalWrite(LIGHT,LOW);
@@ -100,7 +100,7 @@ void loop() {
 
      
           myFile = SD.open("File.csv", FILE_WRITE);
-          if (myFile){
+          if (myFile){ // record H
 //        digitalWrite(LIGHT,HIGH);
 //        delay(500);
 //        digitalWrite(LIGHT,LOW);
