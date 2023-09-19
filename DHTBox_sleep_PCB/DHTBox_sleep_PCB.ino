@@ -8,11 +8,13 @@
    VCC-5V
    GND-GND
 */
-#define delay_time 420000  //(Delay time in millisec)
+#define delay_time {420000}  //(Delay time in millisec)
 #define LIGHT PD5  //(Bulb Pin)
 #define DHTPIN PD2  //(DHT Pin)
 #define DHTTYPE DHT22
 
+float h {0}; // Variable for humidity reading
+float t {0}; // Variable for temperature reading
 
 #include <iarduino_RTC.h>
 #include <GyverPower.h>
@@ -28,7 +30,7 @@ File myFile;
 
 
 void setup() {
-    delay(300);
+  delay(300);
   power.hardwareDisable
   (PWR_USB|
    PWR_UART0|
@@ -71,54 +73,49 @@ void setup() {
 }
 void loop() {
   
-     float h = dht.readHumidity(); //humidity
-     float t = dht.readTemperature(); //temperature
+  h = dht.readHumidity(); //humidity
+  t = dht.readTemperature(); //temperature
 //      Serial.print(h);
 //      Serial.println();
       
-      myFile = SD.open("File.csv", FILE_WRITE);
-      if (myFile){//record T
+  myFile = SD.open("File.csv", FILE_WRITE);
+    if (myFile){//record T
 //        digitalWrite(LIGHT,HIGH);
 //        delay(500);
 //        digitalWrite(LIGHT,LOW);
-        myFile.print(time.gettime("d.m.Y;H:i:s;"));
-        myFile.print("01");
-        myFile.print(";");
-        myFile.print("1.0");
-        myFile.print(";");
-        myFile.print("1");
-        myFile.print(";");
-        myFile.print("H");
-        myFile.print(";");
-        myFile.print(h);
-        myFile.print(";");
-        myFile.println();
-
-      }
-      myFile.close();
-      
-
-     
-          myFile = SD.open("File.csv", FILE_WRITE);
-          if (myFile){ // record H
+      myFile.print(time.gettime("d.m.Y;H:i:s;"));
+      myFile.print("01");
+      myFile.print(";");
+      myFile.print("1.0");
+      myFile.print(";");
+      myFile.print("1");
+      myFile.print(";");
+      myFile.print("H");
+      myFile.print(";");
+      myFile.print(h);
+      myFile.print(";");
+      myFile.println();
+    }
+  myFile.close();
+  myFile = SD.open("File.csv", FILE_WRITE);
+    if (myFile){ // record H
 //        digitalWrite(LIGHT,HIGH);
 //        delay(500);
 //        digitalWrite(LIGHT,LOW);
-        myFile.print(time.gettime("d.m.Y;H:i:s;"));
-        myFile.print("01");
-        myFile.print(";");
-        myFile.print("1.0");
-        myFile.print(";");
-        myFile.print("2");
-        myFile.print(";");
-        myFile.print("T");
-        myFile.print(";");
-        myFile.print(t);
-        myFile.print(";");
-        myFile.println();
-
+      myFile.print(time.gettime("d.m.Y;H:i:s;"));
+      myFile.print("01");
+      myFile.print(";");
+      myFile.print("1.0");
+      myFile.print(";");
+      myFile.print("2");
+      myFile.print(";");
+      myFile.print("T");
+      myFile.print(";");
+      myFile.print(t);
+      myFile.print(";");
+      myFile.println();
       }
-          myFile.close();
-    power.sleepDelay(delay_time);
-    // delay(delay_time);
+  myFile.close();
+  power.sleepDelay(delay_time);
+  // delay(delay_time);
   }
